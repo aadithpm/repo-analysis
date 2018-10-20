@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from auth_tokens import token, user, passw
 import json
 
 def get_num_repositories(url):
@@ -9,10 +10,11 @@ def get_num_repositories(url):
 
 def get_users(id=0):
     if id == 0:
-        request = requests.get("https://api.github.com/users")
+        request = requests.get("https://api.github.com/users", auth = (user, passw))
     else:
         id = str(id)
-        request = requests.get("https://api.github.com/users?since="+id)
+        request = requests.get("https://api.github.com/users?since="+id, auth = (user, passw))
+
     json_data = json.loads(request.text)
     return json_data
 
